@@ -37,15 +37,21 @@ class LinkCardList extends Component {
     }
  
     render() {
-        if (this.state.linksError) {
+        const {links, linksError} = this.state;
+        if (linksError) {
             return <div>Ошибка: {this.state.linksError}</div>
         }
-        if (this.state.links === null) {
+        if (links === null) {
             return <div>Загрузка ссылок...</div>
         }
-        const cards = [];
-        for (let i =0; i < this.state.links.length; i++) {
-            const link = this.state.links[i];
+        const cards = links.map(link => {
+            <Card key={link.id} 
+            id={link.id}
+            title={link.title}
+            desc={link.description}
+           button={link.link}/>
+        });
+        for (const link of this.state.links){
             console.log(link);
             const card = (
                 <Card id={link.id}

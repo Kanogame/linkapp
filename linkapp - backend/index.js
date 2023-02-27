@@ -9,7 +9,19 @@ const links = [
         id: 1, 
         title: "abc", 
         description: "wasd",
-        link: "http://localhost:3000",
+        link: "http://localhost:3000/index.html",
+    },
+    {
+        id: 2, 
+        title: "debian", 
+        description: "download debian",
+        link: "https://www.debian.org/",
+    },
+    {
+        id: 1, 
+        title: "nodeJS", 
+        description: "download nodeJS",
+        link: "https://nodejs.org/",
     }
 ];
 

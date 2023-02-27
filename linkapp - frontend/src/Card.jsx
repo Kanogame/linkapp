@@ -80,7 +80,7 @@ class Card extends Component {
             </Header>
             <Desc>{this.props.desc}</Desc>
             <Buttons>
-                <LinkButton href={this.props.button}>button</LinkButton>
+                <LinkButton href={this.props.button} target="_blank">button</LinkButton>
                 <EditButton>e</EditButton>
                 <EditButton>r</EditButton>
             </Buttons>

@@ -45,22 +45,13 @@ class LinkCardList extends Component {
             return <div>Загрузка ссылок...</div>
         }
         const cards = links.map(link => {
-            <Card key={link.id} 
+            return <Card key={link.id} 
             id={link.id}
             title={link.title}
             desc={link.description}
-           button={link.link}/>
+           button={link.link}
+           favicon={link.favicon}/>
         });
-        for (const link of this.state.links){
-            console.log(link);
-            const card = (
-                <Card id={link.id}
-                 title={link.title}
-                  desc={link.description}
-                   button={link.link}/>
-            );
-            cards.push(card);
-        }
         return <Root>
             {cards}
             </Root>;

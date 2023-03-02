@@ -66,6 +66,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 cursor: pointer;
+text-aling: center;
 
 &:hover {
     background-color: gray;
@@ -76,7 +77,7 @@ class Card extends Component {
         return <Root>
             <Header> 
                 <HeadText>{this.props.title}</HeadText>
-                <HeadImage src={this.props.button + "favicon.ico"} alt=""></HeadImage>
+                <HeadImage src={this.props.favicon} alt="no favicon"></HeadImage>
             </Header>
             <Desc>{this.props.desc}</Desc>
             <Buttons>

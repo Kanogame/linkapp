@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import styled from "styled-components";
+import AddLinkModal from "./addLinkModal";
 import LinkCardList from "./LinkCardList";
 
 const Root = styled.div`
@@ -24,6 +25,7 @@ class App extends Component {
         return <Root>
             <ButtonAdd>+</ButtonAdd>
             <LinkCardList />
+            
             </Root>;
     }
 }

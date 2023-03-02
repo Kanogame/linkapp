@@ -21,11 +21,31 @@ text-aling: center;
 `
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalOpened: false,
+        }
+    }
+
+    openModal = () => {
+        this.setState({
+            modalOpened: true,
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            modalOpened: false,
+        });
+    }
+
     render() {
+        const {modalOpened } = this.state;
         return <Root>
-            <ButtonAdd>+</ButtonAdd>
+            <ButtonAdd onClick={this.openModal}>+</ButtonAdd>
             <LinkCardList />
-            
+            {modalOpened && <AddLinkModal closeModal={this.closeModal}/>}
             </Root>;
     }
 }

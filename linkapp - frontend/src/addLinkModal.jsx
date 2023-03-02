@@ -80,30 +80,39 @@ cursor: pointer;
 `
 
 class AddLinkModal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputNameVal: "",
+            inputDescVal: "",
+            inputLinkVal: "",
+        }
+    }
+    closeModal = () => {
+        this.props.closeModal();
+    }
+
     render() {
+        const {inputNameVal, inputDescVal, inputLinkVal} = this.state;
         return (
             <>
                 <Back />
                 <Modal>
                     <Head>
                         <Title>Добавление ссылки</Title>
-                        <CloseButton>x</CloseButton>
+                        <CloseButton onClick={this.closeModal}>X</CloseButton>
                     </Head>
                     <Label>
                         <Span>Название ссылки</Span>
-                        <Input></Input>
+                        <Input placeholder="название" value={inputNameVal}></Input>
                     </Label>
                     <Label>
                         <Span>Описание ссылки</Span>
-                        <Input></Input>
+                        <Input placeholder="описание" value={inputDescVal}></Input>
                     </Label>
                     <Label>
                         <Span>Ссылка</Span>
-                        <Input></Input>
-                    </Label>
-                    <Label>
-                        <Span>favicon</Span>
-                        <Input></Input>
+                        <Input placeholder="ссылка" value={inputLinkVal} on></Input>
                     </Label>
                     <AddButton>Добавить ссылку</AddButton>
                 </Modal>

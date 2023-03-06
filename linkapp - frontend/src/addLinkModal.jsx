@@ -92,6 +92,48 @@ class AddLinkModal extends Component {
         this.props.closeModal();
     }
 
+    setName = e => {
+        const name = e.target.value;
+        this.setState({
+            inputNameVal: name,
+        });
+    }
+
+    setDesc = e => {
+        const desc = e.target.value;
+        this.setState({
+            inputDescVal: desc,
+        });
+    }
+
+    setLink = e => {
+        const link = e.target.value;
+        this.setState({
+            inputLinkVal: link,
+        });
+    }
+
+    addLink = async () => {
+        const data = {
+            name: this.state.inputNameVal,
+            desc: this.state.inputDescVal,
+            link: this.state.inputLinkVal,
+        }
+        const options = {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+        const resp = await fetch("http://localhost:13532/link/add", options);
+        const ans = resp.json();
+        if (ans.success !== true) {
+            throw new Error("что-то пошло не так");
+        }
+    }
+
     render() {
         const {inputNameVal, inputDescVal, inputLinkVal} = this.state;
         return (
@@ -104,17 +146,17 @@ class AddLinkModal extends Component {
                     </Head>
                     <Label>
                         <Span>Название ссылки</Span>
-                        <Input placeholder="название" value={inputNameVal}></Input>
+                        <Input placeholder="название" value={inputNameVal} onChange={this.setName}></Input>
                     </Label>
                     <Label>
                         <Span>Описание ссылки</Span>
-                        <Input placeholder="описание" value={inputDescVal}></Input>
+                        <Input placeholder="описание" value={inputDescVal} onChange={this.setDesc}></Input>
                     </Label>
                     <Label>
                         <Span>Ссылка</Span>
-                        <Input placeholder="ссылка" value={inputLinkVal} on></Input>
+                        <Input placeholder="ссылка" value={inputLinkVal} onChange={this.setLink}></Input>
                     </Label>
-                    <AddButton>Добавить ссылку</AddButton>
+                    <AddButton onClick={this.addLink}>Добавить ссылку</AddButton>
                 </Modal>
             </>
         );

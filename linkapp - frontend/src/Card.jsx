@@ -73,6 +73,23 @@ text-aling: center;
 }`
 
 class Card extends Component {
+    removeLink = async () => {
+        const data = this.props.id;
+        const options = {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+        const resp = await fetch("http://localhost:13532/link/remove", options);
+        const ans = resp.json();
+        if (ans.success !== true) {
+            throw new Error("что-то пошло не так");
+        }
+    }
+
     render() {
         return <Root>
             <Header> 
@@ -83,7 +100,7 @@ class Card extends Component {
             <Buttons>
                 <LinkButton href={this.props.button} target="_blank">button</LinkButton>
                 <EditButton>e</EditButton>
-                <EditButton>r</EditButton>
+                <EditButton onClick={this.removeLink}>r</EditButton>
             </Buttons>
         </Root>
     }

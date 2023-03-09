@@ -54,7 +54,14 @@ app.post("/link/add", (req, res) => {
 
 app.post("/link/remove", (req, res) => {
     const data = +req.body;
-    links.splice(data, 1);
+    for (let i = 0; i < links.length; i++) {
+        if (links[i].id = data.id) {
+            links.slice(i, 1)
+        }
+    }
+    res.json({
+        success: true,
+    });
 })
 
 function generateFavicon(link) {

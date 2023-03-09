@@ -21,7 +21,11 @@ class LinkCardList extends Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
+        this.setState({
+            links: null,
+            linksError: null,
+        });
         try {
             const resp = await fetch("http://localhost:13532/links/get");
             const links = await resp.json();
@@ -50,7 +54,8 @@ class LinkCardList extends Component {
             title={link.title}
             desc={link.description}
            button={link.link}
-           favicon={link.favicon}/>
+           favicon={link.favicon}
+           refresh={this.componentDidMount}/>
         });
         return <Root>
             {cards}

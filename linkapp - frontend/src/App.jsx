@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import styled from "styled-components";
+import ErrorStack from "./ErrorStack";
 import AddLinkModal from "./addLinkModal";
 import LinkCardList from "./LinkCardList";
 
@@ -46,6 +47,7 @@ class App extends Component {
             <ButtonAdd onClick={this.openModal}>+</ButtonAdd>
             <LinkCardList />
             {modalOpened && <AddLinkModal closeModal={this.closeModal}/>}
+            <ErrorStack errors={[{ errorName: "hello", errorText: "world"}]}/>
             </Root>;
     }
 }

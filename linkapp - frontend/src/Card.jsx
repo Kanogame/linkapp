@@ -74,7 +74,7 @@ text-aling: center;
 
 class Card extends Component {
     removeLink = async () => {
-        const data = this.props.id;
+        const data = { id: this.props.id };
         const options = {
             method: "POST",
             body: JSON.stringify(data),
@@ -84,10 +84,11 @@ class Card extends Component {
             }
         };
         const resp = await fetch("http://localhost:13532/link/remove", options);
-        const ans = resp.json();
+        const ans = await resp.json();
         if (ans.success !== true) {
             throw new Error("что-то пошло не так");
         }
+        this.props.refresh();
     }
 
     render() {

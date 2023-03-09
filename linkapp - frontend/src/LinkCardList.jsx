@@ -20,30 +20,10 @@ class LinkCardList extends Component {
             linksError: null,
         };
     }
-
-    componentDidMount = async () => {
-        this.setState({
-            links: null,
-            linksError: null,
-        });
-        try {
-            const resp = await fetch("http://localhost:13532/links/get");
-            const links = await resp.json();
-            this.setState({
-                links: links,
-            });
-        console.log(links);
-        } catch (er) {
-           this.setState({
-            linksError: er, 
-           });
-        }
-    }
  
     render() {
-        const {links, linksError} = this.state;
+        const {links, linksError} = this.props;
         if (linksError) {
-            return <div>Ошибка: {this.state.linksError}</div>
         }
         if (links === null) {
             return <div>Загрузка ссылок...</div>

@@ -1,12 +1,29 @@
 import React, { Component } from "react"
 import styled from "styled-components";
-import ErrorStack from "./ErrorStack";
 import AddLinkModal from "./addLinkModal";
 import LinkCardList from "./LinkCardList";
 
 const Root = styled.div`
 display: flex;
 flex-direction: column;`
+
+const ErrorStack = styled.div`
+position: absolute;
+right: 0;
+bottom: 0;
+width: 300px;
+height: auto;`
+
+const Body = styled.div`
+background-color: lightgray;
+border: 1px solid gray;
+margin-top: 20px;`
+
+const Name = styled.div`
+font-size: 20px;`
+
+const Text = styled.div`
+font-size: 14px;`
 
 const ButtonAdd = styled.button`
 flex: 0 0 40px;
@@ -26,6 +43,9 @@ class App extends Component {
         super(props);
         this.state = {
             modalOpened: false,
+            errors: [],
+            links: null,
+            linksError: null,
         }
     }
 
@@ -41,13 +61,52 @@ class App extends Component {
         });
     }
 
+    addNewError = (errorName, errorText) => {
+        const errors = this.state.errors;
+        const newError = (<Body>
+            <Name>{errorName}</Name>
+            <Text>{errorText}</Text>
+        </Body>);
+        const res = errors.push(newError);
+        this.setState({
+            errors: res
+        })
+    }
+
+    componentDidMount = async () => {
+        this.setState({
+            links: null,
+            linksError: null,
+        });
+        try {
+            const resp = await fetch("http://localhost:13532/links/get");
+            const links = await resp.json();
+            this.setState({
+                links: links,
+            });
+        console.log(links);
+        } catch (er) {
+           this.setState({
+            linksError: er, 
+           });
+           this.addNewError("ошибка при загрузки сервера", er)
+        }
+    }
+
     render() {
-        const {modalOpened } = this.state;
+        const {modalOpened, errors} = this.state;
+        console.log(errors);
+        const errorStack = errors.map(error => (
+            <Body>
+                <Name>{error.errorName}</Name>
+                <Text>{error.errorText}</Text>
+            </Body>
+        ));
         return <Root>
             <ButtonAdd onClick={this.openModal}>+</ButtonAdd>
-            <LinkCardList />
-            {modalOpened && <AddLinkModal closeModal={this.closeModal}/>}
-            <ErrorStack errors={[{ errorName: "hello", errorText: "world"}]}/>
+            <LinkCardList addNewError={this.addNewError} links={this.state.links} linksError={this.state.linksError}/>
+            {modalOpened && <AddLinkModal closeModal={this.closeModal} addNewError={this.addNewError}/>}
+            <ErrorStack>{errorStack}</ErrorStack>
             </Root>;
     }
 }

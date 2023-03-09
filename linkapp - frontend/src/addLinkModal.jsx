@@ -127,11 +127,13 @@ class AddLinkModal extends Component {
                 "Accept": "application/json"
             }
         };
-        const resp = await fetch("http://localhost:13532/link/add", options);
-        const ans = resp.json();
-        if (ans.success !== true) {
-            throw new Error("что-то пошло не так");
-        }
+        try {
+            const resp = await fetch("http://localhost:13532/link/add", options);
+            const ans = resp.json();
+            if (ans.success !== true) {
+            this.props.addNewError("Сервер не доступен", "перезвоните позже");
+            }
+        } catch (e) { this.props.addNewError("Сервер не доступен", e);}
     }
 
     render() {

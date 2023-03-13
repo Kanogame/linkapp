@@ -24,6 +24,7 @@ class LinkCardList extends Component {
     render() {
         const {links, linksError} = this.props;
         if (linksError) {
+            return
         }
         if (links === null) {
             return <div>Загрузка ссылок...</div>

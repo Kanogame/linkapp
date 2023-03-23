@@ -83,12 +83,16 @@ class Card extends Component {
                 "Accept": "application/json"
             }
         };
-        const resp = await fetch("http://localhost:13532/link/remove", options);
-        const ans = await resp.json();
-        if (ans.success !== true) {
-            throw new Error("что-то пошло не так");
+        try {
+            const resp = await fetch("http://localhost:13532/link/remove", options);
+            const ans = await resp.json();
+            if (ans.success !== true) {
+                this.props.addNewError("Ошибка удаления", "Сервер ответил ошибкой")
+            }
+            this.props.refresh();
+        } catch {
+            this.props.addNewError("Ошибка удаления", "Сервер не ответил")
         }
-        this.props.refresh();
     }
 
     render() {

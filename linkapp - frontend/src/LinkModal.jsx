@@ -79,7 +79,7 @@ cursor: pointer;
 }
 `
 
-class AddLinkModal extends Component {
+class LinkModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -165,4 +165,4 @@ class AddLinkModal extends Component {
     }
 }
 
-export default AddLinkModal;
+export default LinkModal;

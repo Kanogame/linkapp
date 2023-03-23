@@ -24,6 +24,7 @@ class LinkCardList extends Component {
     render() {
         const {links, linksError} = this.props;
         if (linksError) {
+            return
         }
         if (links === null) {
             return <div>Загрузка ссылок...</div>
@@ -35,7 +36,8 @@ class LinkCardList extends Component {
             desc={link.description}
            button={link.link}
            favicon={link.favicon}
-           refresh={this.componentDidMount}/>
+           refresh={this.props.componentDidMount}
+           addNewError={this.props.addNewError}/>
         });
         return <Root>
             {cards}

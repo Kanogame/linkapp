@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import styled from "styled-components";
-import AddLinkModal from "./addLinkModal";
+import LinkModal from "./LinkModal";
 import LinkCardList from "./LinkCardList";
 
 const Root = styled.div`
@@ -46,6 +46,10 @@ class App extends Component {
             errors: [],
             links: null,
             linksError: null,
+            id: null,
+            name: null,
+            desk: null,
+            link: null,
         }
     }
 
@@ -62,15 +66,14 @@ class App extends Component {
     }
 
     addNewError = (errorName, errorText) => {
-        const errors = this.state.errors;
-        const newError = (<Body>
-            <Name>{errorName}</Name>
-            <Text>{errorText}</Text>
-        </Body>);
-        const res = errors.push(newError);
+        console.log(errorName, errorText);
+        const {errors} = this.state;
+        console.log(errors);
+        const newError = {errorName: errorName, errorText: errorText};
+        errors.push(newError);
         this.setState({
-            errors: res
-        })
+            errors: errors
+        });
     }
 
     componentDidMount = async () => {
@@ -95,17 +98,19 @@ class App extends Component {
 
     render() {
         const {modalOpened, errors} = this.state;
+        let errorStack = [];
         console.log(errors);
-        const errorStack = errors.map(error => (
-            <Body>
+        if (errors) { 
+            errorStack = errors.map((error) => {return (<Body>
                 <Name>{error.errorName}</Name>
                 <Text>{error.errorText}</Text>
-            </Body>
-        ));
+            </Body>)});
+        }
+
         return <Root>
             <ButtonAdd onClick={this.openModal}>+</ButtonAdd>
-            <LinkCardList addNewError={this.addNewError} links={this.state.links} linksError={this.state.linksError}/>
-            {modalOpened && <AddLinkModal closeModal={this.closeModal} addNewError={this.addNewError}/>}
+            <LinkCardList addNewError={this.addNewError} links={this.state.links} linksError={this.state.linksError} componentDidMount={this.componentDidMount}/>
+            {modalOpened && <LinkModal closeModal={this.closeModal} addNewError={this.addNewError}/>}
             <ErrorStack>{errorStack}</ErrorStack>
             </Root>;
     }

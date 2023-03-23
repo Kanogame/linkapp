@@ -8,21 +8,21 @@ app.use(bodyParcser.json());
 
 const links = [
     {
-        id: 1, 
+        id: "1", 
         title: "abc", 
         description: "wasd",
         link: "http://localhost:3000/index.html",
         favicon: "http://localhost:3000/favicon.ico",
     },
     {
-        id: 2, 
+        id: "2", 
         title: "debian", 
         description: "download debian",
         link: "https://www.debian.org/",
         favicon: "https://www.debian.org/favicon.ico",
     },
     {
-        id: 3, 
+        id: "3", 
         title: "nodeJS", 
         description: "download nodeJS",
         link: "https://nodejs.org/",
@@ -53,10 +53,10 @@ app.post("/link/add", (req, res) => {
 });
 
 app.post("/link/remove", (req, res) => {
-    const data = +req.body;
+    const data = req.body;
     for (let i = 0; i < links.length; i++) {
-        if (links[i].id = data.id) {
-            links.slice(i, 1)
+        if (links[i].id === data.id) {
+            links.splice(i, 1)
         }
     }
     res.json({

@@ -74,6 +74,8 @@ class App extends Component {
         this.setState({
             errors: errors
         });
+            errors: errors
+        });
     }
 
     componentDidMount = async () => {
@@ -99,11 +101,17 @@ class App extends Component {
     render() {
         const {modalOpened, errors} = this.state;
         let errorStack = [];
+        let errorStack = [];
         console.log(errors);
+        if (errors) { 
+            errorStack = errors.map((error) => {return (<Body>
         if (errors) { 
             errorStack = errors.map((error) => {return (<Body>
                 <Name>{error.errorName}</Name>
                 <Text>{error.errorText}</Text>
+            </Body>)});
+        }
+
             </Body>)});
         }
 

@@ -36,6 +36,21 @@ app.get("/links/get", (req, res) => {
     res.json(links);
 });
 
+app.post("/link/edit", (req, res) => {
+    const data = req.body;
+    for (let i = 0; i < links.length; i++) {
+        if (links[i].id === data.id) {
+            links[i].title = data.name;
+            links[i].description = data.desc;
+            links[i].link = data.link;
+            links[i].favicon = generateFavicon(data.link);
+        }
+    }
+    res.json({
+        success: true,
+    });
+})
+
 app.post("/link/add", (req, res) => {
     const data = req.body;
     const newLink = {

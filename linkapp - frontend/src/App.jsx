@@ -55,7 +55,6 @@ class App extends Component {
     }
 
     openModal = (data) => {
-        console.log(data);
         if (data.new === undefined) {
             this.setState({
                 modalOpened: true,
@@ -80,9 +79,7 @@ class App extends Component {
     }
 
     addNewError = (errorName, errorText) => {
-        console.log(errorName, errorText);
         const {errors} = this.state;
-        console.log(errors);
         const newError = {errorName: errorName, errorText: errorText};
         errors.push(newError);
         this.setState({
@@ -101,7 +98,6 @@ class App extends Component {
             this.setState({
                 links: links,
             });
-        console.log(links);
         } catch (er) {
            this.setState({
             linksError: er, 
@@ -113,7 +109,6 @@ class App extends Component {
     render() {
         const {modalOpened, errors} = this.state;
         let errorStack = [];
-        console.log(errors);
         if (errors) { 
             errorStack = errors.map((error) => {return (<Body>
                 <Name>{error.errorName}</Name>

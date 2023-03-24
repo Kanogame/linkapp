@@ -87,7 +87,6 @@ class LinkModal extends Component {
             inputDescVal: this.props.desc,
             inputLinkVal: this.props.link,
         }
-        console.log(this.props.new)
     }
     closeModal = () => {
         this.props.closeModal();
@@ -115,28 +114,54 @@ class LinkModal extends Component {
     }
 
     addLink = async () => {
-        const data = {
-            name: this.state.inputNameVal,
-            desc: this.state.inputDescVal,
-            link: this.state.inputLinkVal,
+        if (this.props.new) {
+            const data = {
+                name: this.state.inputNameVal,
+                desc: this.state.inputDescVal,
+                link: this.state.inputLinkVal,
+            }
+            const options = {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            };
+            try {
+                const resp = await fetch("http://localhost:13532/link/add", options);
+                const ans = await resp.json();
+                if (ans.success !== true) {
+                this.props.addNewError("Сервер не доступен", "перезвоните позже");
+                }
+                this.closeModal();
+                this.props.componentDidMount();
+            } catch (e) { this.props.addNewError("Сервер не доступен", e);}
+        } else {
+            const data = {
+                id: this.props.id,
+                name: this.state.inputNameVal,
+                desc: this.state.inputDescVal,
+                link: this.state.inputLinkVal
+            }
+            const options = {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            };
+            try {
+                const resp = await fetch("http://localhost:13532/link/edit", options);
+                const ans = await resp.json();
+                if (ans.success !== true) {
+                this.props.addNewError("Сервер не доступен", "перезвоните позже");
+                }
+                this.closeModal();
+                this.props.componentDidMount();
+            } catch (e) { this.props.addNewError("Сервер не доступен", e);}
         }
-        const options = {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        };
-        try {
-            const resp = await fetch("http://localhost:13532/link/add", options);
-            const ans = resp.json();
-            if (ans.success !== true) {
-            this.props.addNewError("Сервер не доступен", "перезвоните позже");
-            }
-            this.closeModal();
-            this.props.componentDidMount();
-        } catch (e) { this.props.addNewError("Сервер не доступен", e);}
     }
 
     render() {

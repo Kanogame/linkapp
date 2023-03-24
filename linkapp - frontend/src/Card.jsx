@@ -94,6 +94,17 @@ class Card extends Component {
             this.props.addNewError("Ошибка удаления", "Сервер не ответил")
         }
     }
+    
+    editLink = () => {
+        const data = {
+            id: this.props.id,
+            name: this.props.title,
+            desc: this.props.desc,
+            link: this.props.button,
+            new: false
+        };
+        this.props.openModal(data);
+    }
 
     render() {
         return <Root>
@@ -104,7 +115,7 @@ class Card extends Component {
             <Desc>{this.props.desc}</Desc>
             <Buttons>
                 <LinkButton href={this.props.button} target="_blank">button</LinkButton>
-                <EditButton>e</EditButton>
+                <EditButton onClick={this.editLink}>e</EditButton>
                 <EditButton onClick={this.removeLink}>r</EditButton>
             </Buttons>
         </Root>

@@ -37,7 +37,8 @@ class LinkCardList extends Component {
            button={link.link}
            favicon={link.favicon}
            refresh={this.props.componentDidMount}
-           addNewError={this.props.addNewError}/>
+           addNewError={this.props.addNewError}
+           openModal={this.props.openModal}/>
         });
         return <Root>
             {cards}

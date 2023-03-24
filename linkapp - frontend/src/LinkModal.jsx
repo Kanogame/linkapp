@@ -83,10 +83,11 @@ class LinkModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputNameVal: "",
-            inputDescVal: "",
-            inputLinkVal: "",
+            inputNameVal: this.props.name,
+            inputDescVal: this.props.desc,
+            inputLinkVal: this.props.link,
         }
+        console.log(this.props.new)
     }
     closeModal = () => {
         this.props.closeModal();
@@ -133,6 +134,8 @@ class LinkModal extends Component {
             if (ans.success !== true) {
             this.props.addNewError("Сервер не доступен", "перезвоните позже");
             }
+            this.closeModal();
+            this.props.componentDidMount();
         } catch (e) { this.props.addNewError("Сервер не доступен", e);}
     }
 
@@ -143,7 +146,8 @@ class LinkModal extends Component {
                 <Back />
                 <Modal>
                     <Head>
-                        <Title>Добавление ссылки</Title>
+                        {this.props.new && <Title>Добавление ссылки</Title>}
+                        {!this.props.new && <Title>Редактрование ссылки</Title>}
                         <CloseButton onClick={this.closeModal}>X</CloseButton>
                     </Head>
                     <Label>

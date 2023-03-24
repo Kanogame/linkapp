@@ -82,10 +82,18 @@ cursor: pointer;
 class LinkModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            inputNameVal: this.props.name,
-            inputDescVal: this.props.desc,
-            inputLinkVal: this.props.link,
+        if (this.props.new) {
+            this.state = {
+                inputNameVal: "",
+                inputDescVal: "",
+                inputLinkVal: "",
+            }
+        } else {
+            this.state = {
+                inputNameVal: this.props.name,
+                inputDescVal: this.props.desc,
+                inputLinkVal: this.props.link,
+            }
         }
     }
     closeModal = () => {
